@@ -3,7 +3,9 @@ import execa from "execa";
 
 import { Hardware } from "./types";
 
-export async function getAllData(debug?: boolean): Promise<Array<Hardware>> {
+export async function getAllHardwareData(
+  debug?: boolean
+): Promise<Array<Hardware>> {
   const { stdout, stderr } = await execa(
     join(
       __dirname,
@@ -16,10 +18,18 @@ export async function getAllData(debug?: boolean): Promise<Array<Hardware>> {
   return JSON.parse(stdout);
 }
 
-export async function getDataByType(
+export async function getHardwareByType(
   type: string,
   debug?: boolean
 ): Promise<Hardware> {
-  const hardwareData = await getAllData(debug);
+  const hardwareData = await getAllHardwareData(debug);
   return hardwareData.find((hardware: Hardware) => hardware.type === type);
+}
+
+export async function getHardwareByName(
+  name: string,
+  debug?: boolean
+): Promise<Hardware> {
+  const hardwareData = await getAllHardwareData(debug);
+  return hardwareData.find((hardware: Hardware) => hardware.name === name);
 }
