@@ -18,7 +18,7 @@ on:
 jobs:
   publish:
     name: 👷 Publish to ${{ matrix.target.name }}
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     if: startsWith(github.ref, 'refs/tags/')
     strategy:
       fail-fast: false
