@@ -20,21 +20,10 @@ jobs:
     name: 👷 Publish to ${{ matrix.target.name }}
     runs-on: windows-latest
     if: startsWith(github.ref, 'refs/tags/')
-    strategy:
-      fail-fast: false
-      matrix:
-        target:
-          - name: NPM
-            registry: https://registry.npmjs.org
-            token: ${{ secrets.NPM_TOKEN }}
-          - name: GitHub
-            registry: https://npm.pkg.github.com
-            token: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: ⤵️ Check out code from GitHub
         uses: actions/checkout@v2.3.4
         with:
-          clean: ${{ matrix.os.server != 'self-hosted' }}
           ref: ${{ github.head_ref }}
       - name: 🏗 Setup MSBuild
         uses: microsoft/setup-msbuild@v1.0.2
@@ -49,13 +38,11 @@ jobs:
           msbuild.exe SystemBridgeWindowsSensors.sln /p:DeleteExistingFiles=True /p:configuration="Release"
         working-directory: SystemBridgeWindowsSensors
       - name: 🏗 Set up Node.js
-        if: matrix.os.server != 'self-hosted'
         uses: actions/setup-node@v2.3.0
         with:
           cache: yarn
           node-version: 16.x
-          registry-url: ${{ matrix.target.registry }}
-          scope: "@system-bridge"
+          registry-url: https://registry.npmjs.org
       - name: 🏗 Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
@@ -63,8 +50,19 @@ jobs:
       - name: 🏗 Run build
         run: |
           yarn build
-      - name: ↗ Publish
+      - name: ↗ Publish to NPM
         run: |
           yarn publish
         env:
-          NODE_AUTH_TOKEN: ${{ matrix.target.token }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: 🏗 Set up Node.js
+        uses: actions/setup-node@v2.3.0
+        with:
+          cache: yarn
+          node-version: 16.x
+          registry-url: https://npm.pkg.github.com
+      - name: ↗ Publish to GitHub
+        run: |
+          yarn publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
