@@ -2,7 +2,7 @@ export interface Sensor {
   id: string;
   name: string;
   type: string;
-  value: boolean | number | string;
+  value: boolean | number | string | null;
 }
 
 export interface Hardware {

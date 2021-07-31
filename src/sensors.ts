@@ -1,7 +1,17 @@
 import { join } from "path";
 import execa from "execa";
 
-import { Hardware } from "./types";
+import { Hardware, Sensor } from "./types";
+
+function cleanupData(data: Array<Hardware>): Array<Hardware> {
+  return data.map((hardware: Hardware) => {
+    hardware.sensors = hardware.sensors.map((sensor: Sensor) => {
+      if (sensor.value === "NaN") sensor.value = null;
+      return sensor;
+    });
+    return hardware;
+  });
+}
 
 export async function getAllHardware(
   debug?: boolean
@@ -15,7 +25,7 @@ export async function getAllHardware(
     )
   );
   if (stderr) throw new Error(stderr);
-  return JSON.parse(stdout);
+  return cleanupData(JSON.parse(stdout));
 }
 
 export async function getHardwareById(
