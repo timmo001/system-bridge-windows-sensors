@@ -1,4 +1,4 @@
-import { Hardware, Sensor } from "./types";
+import { Hardware, Sensor, SensorType } from "./types";
 import {
   getAllHardware,
   getHardwareById,
@@ -13,4 +13,5 @@ export {
   getHardwareByType,
   Hardware,
   Sensor,
+  SensorType,
 };
