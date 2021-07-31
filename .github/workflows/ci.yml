@@ -29,18 +29,12 @@ jobs:
         uses: actions/setup-node@v2.3.0
         with:
           node-version: 16.x
-          cache: yarn
       - name: 🏗 Install linux dependencies
         run: |
           sudo apt update
           sudo apt install libavahi-compat-libdnssd-dev libxtst-dev libpng++-dev libxext-dev libxss-dev
-      - name: ⤵️ Install dependencies
-        run: |
-          yarn install
-        env:
-          CI: true
       - name: 🚀 Run ESLint
-        run: yarn eslint
+        run: npx eslint
   lint-jsonlint:
     name: 👕 JSONLint
     runs-on: ubuntu-latest
