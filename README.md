@@ -1,3 +1,3 @@
 # System Bridge Windows Sensors
 
-Windows sensor information using a dotNet applicaiton.
+Windows sensor information using a dotNet application.
