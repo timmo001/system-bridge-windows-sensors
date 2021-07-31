@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using LibreHardwareMonitor.Hardware;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -58,8 +58,8 @@ namespace SystemBridgeWindowsSensors
                             ["value"] = sensor.Value,
                         });
                     }
-                    arrSubHardwareSensors["sensors"] = arrSubHardwareSensors;
-                    arrSubHardware.Add(arrSubHardwareSensors);
+                    objSubHardware["sensors"] = arrSubHardwareSensors;
+                    arrSubHardware.Add(objSubHardware);
                 }
 
                 objHardware["subhardware"] = arrSubHardware;
