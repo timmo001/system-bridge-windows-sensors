@@ -122,7 +122,7 @@ jobs:
           format: colored
           strict: false
   build-app:
-    name: 🚀 Build Application
+    name: 🚀 Build
     runs-on: ubuntu-latest
     steps:
       - name: ⤵️ Check out code from GitHub
