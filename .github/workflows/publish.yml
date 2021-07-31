@@ -18,7 +18,7 @@ on:
 jobs:
   publish:
     name: 👷 Publish to ${{ matrix.target.name }}
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     if: startsWith(github.ref, 'refs/tags/')
     strategy:
       fail-fast: false
@@ -36,12 +36,24 @@ jobs:
         with:
           clean: ${{ matrix.os.server != 'self-hosted' }}
           ref: ${{ github.head_ref }}
+      - name: 🏗 Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.0.2
+      - name: 🏗 Setup NuGet
+        uses: NuGet/setup-nuget@v1.0.5
+      - name: 🏗 Restore Packages
+        run: |
+          nuget restore SystemBridgeWindowsSensors.sln
+        working-directory: SystemBridgeWindowsSensors
+      - name: 🏗 Build Solution
+        run: |
+          msbuild.exe SystemBridgeWindowsSensors.sln /p:DeleteExistingFiles=True /p:configuration="Release"
+        working-directory: SystemBridgeWindowsSensors
       - name: 🏗 Set up Node.js
         if: matrix.os.server != 'self-hosted'
         uses: actions/setup-node@v2.3.0
         with:
-          node-version: 16.x
           cache: yarn
+          node-version: 16.x
           registry-url: ${{ matrix.target.registry }}
           scope: "@system-bridge"
       - name: 🏗 Install dependencies
