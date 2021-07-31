@@ -1,7 +1,7 @@
 {
   "name": "system-bridge-windows-sensors",
   "description": "Windows sensor information using a dotNet applicaiton.",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "private": false,
   "author": {
     "name": "Aidan Timson <Timmo>",
@@ -19,6 +19,9 @@
     "url": "https://github.com/timmo001/system-bridge-windows-sensors"
   },
   "license": "MIT",
+  "os": [
+    "win32"
+  ],
   "main": "dist/index.js",
   "scripts": {
     "build": "rimraf dist && tsc"
