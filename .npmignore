@@ -1,1 +1,15 @@
+# Directories
+.github/
 src/
+SystemBridgeWindowsSensors/
+!SystemBridgeWindowsSensors/bin/Release/
+
+# Indivisual files
+.editorconfig
+.eslintrc.js
+.mdl.rb
+.mdlrc
+.yamllint.yml
+mlc_config.json
+tsconfig.json
+tsconfig.build.json
