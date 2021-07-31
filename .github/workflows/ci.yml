@@ -130,15 +130,15 @@ jobs:
         with:
           clean: ${{ matrix.os.server != 'self-hosted' }}
           ref: ${{ github.head_ref }}
-      - name: Setup MSBuild
+      - name: 🏗 Setup MSBuild
         uses: microsoft/setup-msbuild@v1.0.2
-      - name: Setup NuGet
+      - name: 🏗 Setup NuGet
         uses: NuGet/setup-nuget@v1.0.5
-      - name: Restore Packages
+      - name: 🏗 Restore Packages
         run: |
           nuget restore SystemBridgeWindowsSensors.sln
         working-directory: SystemBridgeWindowsSensors
-      - name: Build Solution
+      - name: 🏗 Build Solution
         run: |
           msbuild.exe SystemBridgeWindowsSensors.sln /p:DeleteExistingFiles=True /p:configuration="Release"
         working-directory: SystemBridgeWindowsSensors
