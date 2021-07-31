@@ -134,15 +134,14 @@ jobs:
         uses: microsoft/setup-msbuild@v1.0.2
       - name: Setup NuGet
         uses: NuGet/setup-nuget@v1.0.5
-      - name: Navigate to Workspace
-        run: |
-          cd SystemBridgeWindowsSensors
       - name: Restore Packages
         run: |
           nuget restore SystemBridgeWindowsSensors.sln
+        working-directory: SystemBridgeWindowsSensors
       - name: Build Solution
         run: |
           msbuild.exe SystemBridgeWindowsSensors.sln /p:DeleteExistingFiles=True /p:configuration="Release"
+        working-directory: SystemBridgeWindowsSensors
       - name: 🏗 Set up Node.js
         if: matrix.os.server != 'self-hosted'
         uses: actions/setup-node@v2.3.0
