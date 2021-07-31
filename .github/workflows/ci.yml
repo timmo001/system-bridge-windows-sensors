@@ -1,0 +1,142 @@
+name: CI
+
+# yamllint disable-line rule:truthy
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+  workflow_dispatch:
+
+# concurrency:
+#   group: ${{ github.head_ref || github.ref }}
+#   cancel-in-progress: true
+
+jobs:
+  lint-eslint:
+    name: 👕 ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⤵️ Check out code from GitHub
+        uses: actions/checkout@v2.3.4
+        with:
+          ref: ${{ github.head_ref }}
+      - name: 🏗 Set up Node.js
+        uses: actions/setup-node@v2.3.0
+        with:
+          node-version: 16.x
+          cache: yarn
+      - name: 🏗 Install linux dependencies
+        run: |
+          sudo apt update
+          sudo apt install libavahi-compat-libdnssd-dev libxtst-dev libpng++-dev libxext-dev libxss-dev
+      - name: ⤵️ Install dependencies
+        run: |
+          yarn install
+        env:
+          CI: true
+      - name: 🚀 Run ESLint
+        run: yarn eslint
+  lint-jsonlint:
+    name: 👕 JSONLint
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⤵️ Check out code from GitHub
+        uses: actions/checkout@v2.3.4
+        with:
+          ref: ${{ github.head_ref }}
+      - name: 🚀 Run JSONLint
+        run: |
+          sudo apt install -y jsonlint
+          for file in $(find ./ -type f -name "*.json"); do
+            if ! jsonlint-php -q $file; then
+              export FAILED=1
+            else
+              echo "$file OK"
+            fi
+          done
+          if [ "${FAILED}" = "1" ]; then
+            exit 1
+          fi
+  lint-markdownlint:
+    name: 👕 MarkdownLint
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⤵️ Check out code from GitHub
+        uses: actions/checkout@v2.3.4
+        with:
+          ref: ${{ github.head_ref }}
+      - name: 🚀 Run mdl
+        uses: actionshub/markdownlint@2.0.2
+  lint-markdown-links:
+    name: 👕 Markdown Link Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⤵️ Check out code from GitHub
+        uses: actions/checkout@v2.3.4
+        with:
+          ref: ${{ github.head_ref }}
+      - name: 🚀 Run Markdown Links
+        uses: gaurav-nelson/github-action-markdown-link-check@1.0.13
+        with:
+          use-quiet-mode: no
+          use-verbose-mode: no
+          config-file: mlc_config.json
+          folder-path: .github, frontend
+          file-path: ./README.md
+          max-depth: -1
+          check-modified-files-only: no
+          base-branch: master
+          file-extension: .md
+  lint-prettier:
+    name: 👕 Prettier
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⤵️ Check out code from GitHub
+        uses: actions/checkout@v2.3.4
+        with:
+          ref: ${{ github.head_ref }}
+      - name: 🚀 Run Prettier
+        uses: creyD/prettier_action@v3.3
+        with:
+          prettier_options: --write **/*.{js,json,ts,tsx,yml,yaml}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  lint-yamllint:
+    name: 👕 YAMLLint
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⤵️ Check out code from GitHub
+        uses: actions/checkout@v2.3.4
+        with:
+          ref: ${{ github.head_ref }}
+      - name: 🚀 Run YAMLLint
+        uses: ibiqlik/action-yamllint@v3.0.2
+        with:
+          file_or_dir: .
+          config_file: .yamllint.yml
+          format: colored
+          strict: false
+  build-app:
+    name: 🚀 Build Application
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⤵️ Check out code from GitHub
+        uses: actions/checkout@v2.3.4
+        with:
+          clean: ${{ matrix.os.server != 'self-hosted' }}
+          ref: ${{ github.head_ref }}
+      - name: 🏗 Set up Node.js
+        if: matrix.os.server != 'self-hosted'
+        uses: actions/setup-node@v2.3.0
+        with:
+          node-version: 16.x
+          cache: yarn
+      - name: 🏗 Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          yarn install
