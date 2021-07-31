@@ -9,6 +9,6 @@ export interface Hardware {
   id: string;
   name: string;
   type: string;
-  subHardware: Hardware[];
-  sensors: Sensor[];
+  subHardware: Array<Hardware>;
+  sensors: Array<Sensor>;
 }
