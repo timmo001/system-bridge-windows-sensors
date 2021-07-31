@@ -16,7 +16,7 @@ export async function getAllData(debug?: boolean): Promise<Array<Hardware>> {
   return JSON.parse(stdout);
 }
 
-export async function getData(
+export async function getDataByType(
   type: string,
   debug?: boolean
 ): Promise<Hardware> {
