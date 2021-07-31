@@ -18,12 +18,12 @@ export async function getAllHardwareData(
   return JSON.parse(stdout);
 }
 
-export async function getHardwareByType(
-  type: string,
+export async function getHardwareById(
+  id: string,
   debug?: boolean
 ): Promise<Hardware> {
   const hardwareData = await getAllHardwareData(debug);
-  return hardwareData.find((hardware: Hardware) => hardware.type === type);
+  return hardwareData.find((hardware: Hardware) => hardware.id === id);
 }
 
 export async function getHardwareByName(
@@ -32,4 +32,12 @@ export async function getHardwareByName(
 ): Promise<Hardware> {
   const hardwareData = await getAllHardwareData(debug);
   return hardwareData.find((hardware: Hardware) => hardware.name === name);
+}
+
+export async function getHardwareByType(
+  type: string,
+  debug?: boolean
+): Promise<Hardware> {
+  const hardwareData = await getAllHardwareData(debug);
+  return hardwareData.find((hardware: Hardware) => hardware.type === type);
 }
