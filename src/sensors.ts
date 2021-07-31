@@ -3,7 +3,7 @@ import execa from "execa";
 
 import { Hardware } from "./types";
 
-export async function getAllHardwareData(
+export async function getAllHardware(
   debug?: boolean
 ): Promise<Array<Hardware>> {
   const { stdout, stderr } = await execa(
@@ -22,7 +22,7 @@ export async function getHardwareById(
   id: string,
   debug?: boolean
 ): Promise<Hardware> {
-  const hardwareData = await getAllHardwareData(debug);
+  const hardwareData = await getAllHardware(debug);
   return hardwareData.find((hardware: Hardware) => hardware.id === id);
 }
 
@@ -30,7 +30,7 @@ export async function getHardwareByName(
   name: string,
   debug?: boolean
 ): Promise<Hardware> {
-  const hardwareData = await getAllHardwareData(debug);
+  const hardwareData = await getAllHardware(debug);
   return hardwareData.find((hardware: Hardware) => hardware.name === name);
 }
 
@@ -38,6 +38,6 @@ export async function getHardwareByType(
   type: string,
   debug?: boolean
 ): Promise<Hardware> {
-  const hardwareData = await getAllHardwareData(debug);
+  const hardwareData = await getAllHardware(debug);
   return hardwareData.find((hardware: Hardware) => hardware.type === type);
 }
