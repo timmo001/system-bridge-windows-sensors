@@ -62,7 +62,7 @@ namespace SystemBridgeWindowsSensors
                     arrSubHardware.Add(objSubHardware);
                 }
 
-                objHardware["subhardware"] = arrSubHardware;
+                objHardware["subHardware"] = arrSubHardware;
 
                 JArray arrSensors = new JArray();
 
