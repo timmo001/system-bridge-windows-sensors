@@ -140,3 +140,6 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
           yarn install
+      - name: 🏗 Run build
+        run: |
+          yarn build

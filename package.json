@@ -1,5 +1,5 @@
 {
-  "name": "system-bridge-windows-sensors",
+  "name": "@system-bridge/windows-sensors",
   "description": "Windows sensor information using a dotNet applicaiton.",
   "version": "0.1.0",
   "private": false,
@@ -19,7 +19,6 @@
     "url": "https://github.com/timmo001/system-bridge-windows-sensors"
   },
   "license": "MIT",
-  "bin": "dist/index.js",
   "main": "dist/index.js",
   "scripts": {
     "build": "rimraf dist && tsc"
