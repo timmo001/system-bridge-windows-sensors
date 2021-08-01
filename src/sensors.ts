@@ -35,16 +35,16 @@ export async function getHardwareById(
 
 export async function getHardwareByName(
   name: string,
-  dev?: boolean
+  pkg?: boolean
 ): Promise<Hardware> {
-  const hardwareData = await getAllHardware(dev);
+  const hardwareData = await getAllHardware(pkg);
   return hardwareData.find((hardware: Hardware) => hardware.name === name);
 }
 
 export async function getHardwareByType(
   type: string,
-  dev?: boolean
+  pkg?: boolean
 ): Promise<Hardware> {
-  const hardwareData = await getAllHardware(dev);
+  const hardwareData = await getAllHardware(pkg);
   return hardwareData.find((hardware: Hardware) => hardware.type === type);
 }
