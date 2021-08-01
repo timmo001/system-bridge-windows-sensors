@@ -27,24 +27,33 @@ export async function getAllHardware(pkg?: boolean): Promise<Array<Hardware>> {
 
 export async function getHardwareById(
   id: string,
-  pkg?: boolean
+  pkg?: boolean,
+  exact = true
 ): Promise<Hardware> {
   const hardwareData = await getAllHardware(pkg);
-  return hardwareData.find((hardware: Hardware) => hardware.id === id);
+  return hardwareData.find((hardware: Hardware) =>
+    exact ? hardware.id === id : hardware.id.includes(id)
+  );
 }
 
 export async function getHardwareByName(
   name: string,
-  pkg?: boolean
+  pkg?: boolean,
+  exact = true
 ): Promise<Hardware> {
   const hardwareData = await getAllHardware(pkg);
-  return hardwareData.find((hardware: Hardware) => hardware.name === name);
+  return hardwareData.find((hardware: Hardware) =>
+    exact ? hardware.name === name : hardware.name.includes(name)
+  );
 }
 
 export async function getHardwareByType(
   type: string,
-  pkg?: boolean
+  pkg?: boolean,
+  exact = true
 ): Promise<Hardware> {
   const hardwareData = await getAllHardware(pkg);
-  return hardwareData.find((hardware: Hardware) => hardware.type === type);
+  return hardwareData.find((hardware: Hardware) =>
+    exact ? hardware.type === type : type.includes(hardware.type)
+  );
 }
