@@ -54,6 +54,6 @@ export async function getHardwareByType(
 ): Promise<Hardware> {
   const hardwareData = await getAllHardware(pkg);
   return hardwareData.find((hardware: Hardware) =>
-    exact ? hardware.type === type : type.includes(hardware.type)
+    exact ? hardware.type === type : hardware.type.includes(type)
   );
 }
