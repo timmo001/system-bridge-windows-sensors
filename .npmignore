@@ -1,8 +1,7 @@
 # Directories
 .github/
 src/
-SystemBridgeWindowsSensors/*
-!SystemBridgeWindowsSensors/bin/Release/*
+SystemBridgeWindowsSensors/
 
 # Indivisual files
 .editorconfig

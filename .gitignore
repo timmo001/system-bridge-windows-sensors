@@ -35,6 +35,7 @@ lerna-debug.log*
 
 # Additional
 out/
+WindowsSensors/
 public/app/*
 !public/app/.gitkeep
 .env
