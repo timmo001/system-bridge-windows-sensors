@@ -3,11 +3,7 @@ import execa from "execa";
 
 import { Hardware, Sensor } from "./types";
 
-const PATH = join(
-  __dirname,
-  "WindowsSensors",
-  "SystemBridgeWindowsSensors.exe"
-);
+const PATH = join(".", "WindowsSensors", "SystemBridgeWindowsSensors.exe");
 
 function cleanupData(data: Array<Hardware>): Array<Hardware> {
   return data.map((hardware: Hardware) => {
