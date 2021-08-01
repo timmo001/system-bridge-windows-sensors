@@ -5,7 +5,7 @@ import { Hardware, Sensor } from "./types";
 
 const PATH = join(
   __dirname,
-  "../WindowsSensors",
+  "WindowsSensors",
   "SystemBridgeWindowsSensors.exe"
 );
 
