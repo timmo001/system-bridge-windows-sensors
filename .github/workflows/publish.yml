@@ -70,6 +70,7 @@ jobs:
       - name: 🏗 Set up Node.js
         uses: actions/setup-node@v2.3.0
         with:
+          always-auth: true
           cache: yarn
           node-version: 16.x
           registry-url: "https://npm.pkg.github.com"
