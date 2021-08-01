@@ -39,7 +39,6 @@ namespace SystemBridgeWindowsSensors
             computer.Open();
             computer.Accept(new UpdateVisitor());
 
-
             JArray arrRoot = new JArray();
 
             foreach (IHardware hardware in computer.Hardware)
