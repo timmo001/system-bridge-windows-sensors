@@ -31,7 +31,7 @@ export async function getHardwareById(
   exact = true
 ): Promise<Hardware> {
   const hardwareData = await getAllHardware(pkg);
-  return hardwareData.find((hardware: Hardware) =>
+  return hardwareData[multiple ? "filter" : "find"]((hardware: Hardware) =>
     exact ? hardware.id === id : hardware.id.includes(id)
   );
 }
@@ -42,7 +42,7 @@ export async function getHardwareByName(
   exact = true
 ): Promise<Hardware> {
   const hardwareData = await getAllHardware(pkg);
-  return hardwareData.find((hardware: Hardware) =>
+  return hardwareData[multiple ? "filter" : "find"]((hardware: Hardware) =>
     exact ? hardware.name === name : hardware.name.includes(name)
   );
 }
@@ -53,7 +53,7 @@ export async function getHardwareByType(
   exact = true
 ): Promise<Hardware> {
   const hardwareData = await getAllHardware(pkg);
-  return hardwareData.find((hardware: Hardware) =>
+  return hardwareData[multiple ? "filter" : "find"]((hardware: Hardware) =>
     exact ? hardware.type === type : hardware.type.includes(type)
   );
 }
