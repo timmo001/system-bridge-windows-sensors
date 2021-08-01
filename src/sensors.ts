@@ -28,10 +28,11 @@ export async function getAllHardware(pkg?: boolean): Promise<Array<Hardware>> {
 export async function getHardwareById(
   id: string,
   pkg?: boolean,
-  exact = true
-): Promise<Hardware> {
+  exact = true,
+  multiple = false
+): Promise<Hardware | Array<Hardware>> {
   const hardwareData = await getAllHardware(pkg);
-  return hardwareData.find((hardware: Hardware) =>
+  return hardwareData[multiple ? "find" : "filter"]((hardware: Hardware) =>
     exact ? hardware.id === id : hardware.id.includes(id)
   );
 }
@@ -39,10 +40,11 @@ export async function getHardwareById(
 export async function getHardwareByName(
   name: string,
   pkg?: boolean,
-  exact = true
-): Promise<Hardware> {
+  exact = true,
+  multiple = false
+): Promise<Hardware | Array<Hardware>> {
   const hardwareData = await getAllHardware(pkg);
-  return hardwareData.find((hardware: Hardware) =>
+  return hardwareData[multiple ? "find" : "filter"]((hardware: Hardware) =>
     exact ? hardware.name === name : hardware.name.includes(name)
   );
 }
@@ -50,10 +52,11 @@ export async function getHardwareByName(
 export async function getHardwareByType(
   type: string,
   pkg?: boolean,
-  exact = true
-): Promise<Hardware> {
+  exact = true,
+  multiple = false
+): Promise<Hardware | Array<Hardware>> {
   const hardwareData = await getAllHardware(pkg);
-  return hardwareData.find((hardware: Hardware) =>
+  return hardwareData[multiple ? "find" : "filter"]((hardware: Hardware) =>
     exact ? hardware.type === type : hardware.type.includes(type)
   );
 }
