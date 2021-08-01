@@ -17,13 +17,13 @@ namespace SystemBridgeWindowsSensors
             {
                 JObject objArgs = JObject.Parse(json);
 
-                computer.IsControllerEnabled = objArgs.SelectToken("controller") == null ? false : (bool)objArgs["controller"];
-                computer.IsCpuEnabled = objArgs.SelectToken("cpu") == null ? false : (bool)objArgs["cpu"];
-                computer.IsGpuEnabled = objArgs.SelectToken("gpu") == null ? false : (bool)objArgs["gpu"];
-                computer.IsMemoryEnabled = objArgs.SelectToken("memory") == null ? false : (bool)objArgs["memory"];
-                computer.IsMotherboardEnabled = objArgs.SelectToken("motherboard") == null ? false : (bool)objArgs["motherboard"];
-                computer.IsNetworkEnabled = objArgs.SelectToken("network") == null ? false : (bool)objArgs["network"];
-                computer.IsStorageEnabled = objArgs.SelectToken("storage") == null ? false : (bool)objArgs["storage"];
+                computer.IsControllerEnabled = objArgs.SelectToken("controller") != null && (bool)objArgs["controller"];
+                computer.IsCpuEnabled = objArgs.SelectToken("cpu") != null && (bool)objArgs["cpu"];
+                computer.IsGpuEnabled = objArgs.SelectToken("gpu") != null && (bool)objArgs["gpu"];
+                computer.IsMemoryEnabled = objArgs.SelectToken("memory") != null && (bool)objArgs["memory"];
+                computer.IsMotherboardEnabled = objArgs.SelectToken("motherboard") != null && (bool)objArgs["motherboard"];
+                computer.IsNetworkEnabled = objArgs.SelectToken("network") != null && (bool)objArgs["network"];
+                computer.IsStorageEnabled = objArgs.SelectToken("storage") != null && (bool)objArgs["storage"];
             }
             else
             {
