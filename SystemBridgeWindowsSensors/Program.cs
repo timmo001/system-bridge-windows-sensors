@@ -9,20 +9,35 @@ namespace SystemBridgeWindowsSensors
     {
         static void Main(string[] args)
         {
-            Computer computer = new Computer
+            Computer computer = new Computer();
+
+            string json = args.Length > 0 ? args[0] : "";
+
+            if (json.StartsWith("{") && json.EndsWith("}"))
             {
-                IsCpuEnabled = true,
-                IsGpuEnabled = true,
-                IsMemoryEnabled = true,
-                IsMotherboardEnabled = true,
-                IsControllerEnabled = true,
-                IsNetworkEnabled = true,
-                IsStorageEnabled = true
-            };
+                JObject objArgs = JObject.Parse(json);
+
+                computer.IsControllerEnabled = objArgs.SelectToken("controller") == null ? false : (bool)objArgs["controller"];
+                computer.IsCpuEnabled = objArgs.SelectToken("cpu") == null ? false : (bool)objArgs["cpu"];
+                computer.IsGpuEnabled = objArgs.SelectToken("gpu") == null ? false : (bool)objArgs["gpu"];
+                computer.IsMemoryEnabled = objArgs.SelectToken("memory") == null ? false : (bool)objArgs["memory"];
+                computer.IsMotherboardEnabled = objArgs.SelectToken("motherboard") == null ? false : (bool)objArgs["motherboard"];
+                computer.IsNetworkEnabled = objArgs.SelectToken("network") == null ? false : (bool)objArgs["network"];
+                computer.IsStorageEnabled = objArgs.SelectToken("storage") == null ? false : (bool)objArgs["storage"];
+            }
+            else
+            {
+                computer.IsControllerEnabled = true;
+                computer.IsCpuEnabled = true;
+                computer.IsGpuEnabled = true;
+                computer.IsMemoryEnabled = true;
+                computer.IsMotherboardEnabled = true;
+                computer.IsNetworkEnabled = true;
+                computer.IsStorageEnabled = true;
+            }
 
             computer.Open();
             computer.Accept(new UpdateVisitor());
-
 
             JArray arrRoot = new JArray();
 

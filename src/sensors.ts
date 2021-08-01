@@ -13,13 +13,17 @@ function cleanupData(data: Array<Hardware>): Array<Hardware> {
   });
 }
 
-export async function getAllHardware(pkg?: boolean): Promise<Array<Hardware>> {
+export async function getAllHardware(
+  pkg?: boolean,
+  filter?: { [key: string]: boolean }
+): Promise<Array<Hardware>> {
   const { stdout, stderr } = await execa(
     join(
       pkg ? process.cwd() : __dirname,
       "WindowsSensors",
       "SystemBridgeWindowsSensors.exe"
-    )
+    ),
+    filter ? [JSON.stringify(filter)] : []
   );
   if (stderr) throw new Error(stderr);
   return cleanupData(JSON.parse(stdout));
@@ -29,9 +33,10 @@ export async function getHardwareById(
   id: string,
   pkg?: boolean,
   exact = true,
-  multiple = false
+  multiple = false,
+  filter?: { [key: string]: boolean }
 ): Promise<Hardware | Array<Hardware>> {
-  const hardwareData = await getAllHardware(pkg);
+  const hardwareData = await getAllHardware(pkg, filter);
   return hardwareData[multiple ? "filter" : "find"]((hardware: Hardware) =>
     exact ? hardware.id === id : hardware.id.includes(id)
   );
@@ -41,9 +46,10 @@ export async function getHardwareByName(
   name: string,
   pkg?: boolean,
   exact = true,
-  multiple = false
+  multiple = false,
+  filter?: { [key: string]: boolean }
 ): Promise<Hardware | Array<Hardware>> {
-  const hardwareData = await getAllHardware(pkg);
+  const hardwareData = await getAllHardware(pkg, filter);
   return hardwareData[multiple ? "filter" : "find"]((hardware: Hardware) =>
     exact ? hardware.name === name : hardware.name.includes(name)
   );
@@ -53,9 +59,10 @@ export async function getHardwareByType(
   type: string,
   pkg?: boolean,
   exact = true,
-  multiple = false
+  multiple = false,
+  filter?: { [key: string]: boolean }
 ): Promise<Hardware | Array<Hardware>> {
-  const hardwareData = await getAllHardware(pkg);
+  const hardwareData = await getAllHardware(pkg, filter);
   return hardwareData[multiple ? "filter" : "find"]((hardware: Hardware) =>
     exact ? hardware.type === type : hardware.type.includes(type)
   );
