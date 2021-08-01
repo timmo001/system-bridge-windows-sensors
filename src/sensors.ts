@@ -16,7 +16,7 @@ function cleanupData(data: Array<Hardware>): Array<Hardware> {
 export async function getAllHardware(pkg?: boolean): Promise<Array<Hardware>> {
   const { stdout, stderr } = await execa(
     join(
-      pkg ? __dirname : process.cwd(),
+      pkg ? process.cwd() : __dirname,
       "WindowsSensors",
       "SystemBridgeWindowsSensors.exe"
     )
