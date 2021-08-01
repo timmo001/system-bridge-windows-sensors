@@ -13,10 +13,10 @@ function cleanupData(data: Array<Hardware>): Array<Hardware> {
   });
 }
 
-export async function getAllHardware(dev?: boolean): Promise<Array<Hardware>> {
+export async function getAllHardware(pkg?: boolean): Promise<Array<Hardware>> {
   const { stdout, stderr } = await execa(
     join(
-      dev ? __dirname : process.cwd(),
+      pkg ? __dirname : process.cwd(),
       "WindowsSensors",
       "SystemBridgeWindowsSensors.exe"
     )
@@ -27,9 +27,9 @@ export async function getAllHardware(dev?: boolean): Promise<Array<Hardware>> {
 
 export async function getHardwareById(
   id: string,
-  dev?: boolean
+  pkg?: boolean
 ): Promise<Hardware> {
-  const hardwareData = await getAllHardware();
+  const hardwareData = await getAllHardware(pkg);
   return hardwareData.find((hardware: Hardware) => hardware.id === id);
 }
 
@@ -37,7 +37,7 @@ export async function getHardwareByName(
   name: string,
   dev?: boolean
 ): Promise<Hardware> {
-  const hardwareData = await getAllHardware();
+  const hardwareData = await getAllHardware(dev);
   return hardwareData.find((hardware: Hardware) => hardware.name === name);
 }
 
@@ -45,6 +45,6 @@ export async function getHardwareByType(
   type: string,
   dev?: boolean
 ): Promise<Hardware> {
-  const hardwareData = await getAllHardware();
+  const hardwareData = await getAllHardware(dev);
   return hardwareData.find((hardware: Hardware) => hardware.type === type);
 }
