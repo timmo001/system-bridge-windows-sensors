@@ -1,7 +1,7 @@
 {
   "name": "system-bridge-windows-sensors",
   "description": "Windows sensor information using a dotNet applicaiton.",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "private": false,
   "author": {
     "name": "Aidan Timson <Timmo>",
