@@ -14,12 +14,12 @@ function cleanupData(data: Array<Hardware>): Array<Hardware> {
 }
 
 export async function getAllHardware(
-  pkg?: boolean,
+  path?: string,
   filter?: { [key: string]: boolean }
 ): Promise<Array<Hardware>> {
   const { stdout, stderr } = await execa(
     join(
-      pkg ? process.cwd() : __dirname,
+      path ? path : __dirname,
       "WindowsSensors",
       "SystemBridgeWindowsSensors.exe"
     ),
@@ -31,12 +31,12 @@ export async function getAllHardware(
 
 export async function getHardwareById(
   id: string,
-  pkg?: boolean,
+  path?: string,
   exact = true,
   multiple = false,
   filter?: { [key: string]: boolean }
 ): Promise<Hardware | Array<Hardware>> {
-  const hardwareData = await getAllHardware(pkg, filter);
+  const hardwareData = await getAllHardware(path, filter);
   return hardwareData[multiple ? "filter" : "find"]((hardware: Hardware) =>
     exact ? hardware.id === id : hardware.id.includes(id)
   );
@@ -44,12 +44,12 @@ export async function getHardwareById(
 
 export async function getHardwareByName(
   name: string,
-  pkg?: boolean,
+  path?: string,
   exact = true,
   multiple = false,
   filter?: { [key: string]: boolean }
 ): Promise<Hardware | Array<Hardware>> {
-  const hardwareData = await getAllHardware(pkg, filter);
+  const hardwareData = await getAllHardware(path, filter);
   return hardwareData[multiple ? "filter" : "find"]((hardware: Hardware) =>
     exact ? hardware.name === name : hardware.name.includes(name)
   );
@@ -57,12 +57,12 @@ export async function getHardwareByName(
 
 export async function getHardwareByType(
   type: string,
-  pkg?: boolean,
+  path?: string,
   exact = true,
   multiple = false,
   filter?: { [key: string]: boolean }
 ): Promise<Hardware | Array<Hardware>> {
-  const hardwareData = await getAllHardware(pkg, filter);
+  const hardwareData = await getAllHardware(path, filter);
   return hardwareData[multiple ? "filter" : "find"]((hardware: Hardware) =>
     exact ? hardware.type === type : hardware.type.includes(type)
   );
