@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ⤵️ Check out code from GitHub
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v2.3.5
         with:
           ref: ${{ github.head_ref }}
       - name: 🏗 Set up Node.js
@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ⤵️ Check out code from GitHub
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v2.3.5
         with:
           ref: ${{ github.head_ref }}
       - name: 🚀 Run JSONLint
@@ -61,7 +61,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ⤵️ Check out code from GitHub
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v2.3.5
         with:
           ref: ${{ github.head_ref }}
       - name: 🚀 Run mdl
@@ -71,7 +71,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ⤵️ Check out code from GitHub
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v2.3.5
         with:
           ref: ${{ github.head_ref }}
       - name: 🚀 Run Markdown Links
@@ -91,7 +91,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ⤵️ Check out code from GitHub
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v2.3.5
         with:
           ref: ${{ github.head_ref }}
       - name: 🚀 Run Prettier
@@ -105,7 +105,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ⤵️ Check out code from GitHub
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v2.3.5
         with:
           ref: ${{ github.head_ref }}
       - name: 🚀 Run YAMLLint
@@ -120,7 +120,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: ⤵️ Check out code from GitHub
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v2.3.5
         with:
           clean: ${{ matrix.os.server != 'self-hosted' }}
           ref: ${{ github.head_ref }}
