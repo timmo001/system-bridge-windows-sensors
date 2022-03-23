@@ -24,7 +24,7 @@
     "build": "rimraf dist && tsc"
   },
   "dependencies": {
-    "execa": "5.1.1"
+    "execa": "6.1.0"
   },
   "devDependencies": {
     "@types/node": "17.0.23",
