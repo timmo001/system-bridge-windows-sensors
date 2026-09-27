@@ -19,7 +19,7 @@ concurrency:
 
 jobs:
   build-dotnet:
-    uses: timmo001/workflows/.github/workflows/build-msbuild-windows.yml@master
+    uses: timmo001/workflows/.github/workflows/build-msbuild-windows.yml@0f94251168336b74fadf271a955d24d1de4de343 # 20260927.1
     with:
       code-path: WindowsSensors
       output-name: windowssensors-build
@@ -28,7 +28,7 @@ jobs:
   build:
     needs:
       - build-dotnet
-    uses: timmo001/workflows/.github/workflows/build-python-windows.yml@master
+    uses: timmo001/workflows/.github/workflows/build-python-windows.yml@0f94251168336b74fadf271a955d24d1de4de343 # 20260927.1
     with:
       additional-artifacts-name: windowssensors-build
       additional-artifacts-path: WindowsSensors/bin
